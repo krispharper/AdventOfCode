@@ -133,7 +133,6 @@ def walk_state_tree_dfs(inital_state):
         if state not in visited:
             visited.add(state)
             for s in state.generate_possible_states():
-                print(s)
 
                 if s.is_final_state():
                     return
@@ -147,18 +146,22 @@ def walk_state_tree_bfs(inital_state):
     inital_state.distance_from_root = 0
     queue.append(inital_state)
     came_from = {}
+    count = 0
 
     while queue:
+        count += 1
+        if count > 1000:
+            return []
         state = queue.popleft()
 
-        for s in state.generate_possible_states():
+        states = state.generate_possible_states()
+
+        for s in states:
             if s.distance_from_root == int(1e10):
-                print(s)
                 s.distance_from_root = state.distance_from_root + 1
                 queue.append(s)
                 came_from[s] = state
                 if s.is_final_state():
-                    #print(s)
                     return get_path_length(came_from, s)
 
 
@@ -225,20 +228,6 @@ equiv_state = {
     4: set([])
 }
 
-#state = {
-    #1: set([(3, 1)]),
-    #2: set([(0, 1)]),
-    #3: set([]),
-    #4: set([])
-#}
-
-#state = {
-    #1: set([(0, 1)]),
-    #2: set([(3, 1)]),
-    #3: set([]),
-    #4: set([])
-#}
-
 end_state = {
     1: set([]),
     2: set([]),
@@ -260,19 +249,16 @@ test_end_state = {
     4: set([(0, 0), (0, 1), (1, 0), (1, 1)])
 }
 
-#s = State(state, 1)
-#e = State(end_state, 4)
-#eq = State(equiv_state, 1)
-#print(s.equivalent(eq))
+s = State(state, 1)
+e = State(end_state, 4)
+eq = State(equiv_state, 1)
+#print(s == eq)
 
-s = State(test_state, 1)
-e = State(test_end_state, 4)
-#print(s.generate_possible_states())
-#print(e)
-#path = walk_state_tree_a_star(s, e)
-path = walk_state_tree_bfs(s)
+#s = State(test_state, 1)
+#e = State(test_end_state, 4)
+path = walk_state_tree_a_star(s, e)
 
-#for state in reversed(path):
-    #print(state)
+for state in reversed(path):
+    print(state)
 
-#print(len(path) - 1)
+print(len(path) - 1)
