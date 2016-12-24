@@ -12,3 +12,10 @@ for d1 in data:
             count += 1
 
 print(count)
+
+for y in range(27):
+    for x in range(31):
+        d = data[x * 27 + y]
+        print(" {0}/{1} ".format(d[2], d[3]), end='')
+
+    print()
