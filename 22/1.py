@@ -13,9 +13,16 @@ for d1 in data:
 
 print(count)
 
-for y in range(27):
-    for x in range(31):
-        d = data[x * 27 + y]
-        print(" {0}/{1} ".format(d[2], d[3]), end='')
+for y in range(28):
+    for x in range(32):
+        d = data[x * 28 + y]
+        if d[0] == 31 and d[1] == 0:
+            print(' G ', end='')
+        elif int(d[2]) > 100:
+            print(' # ', end='')
+        elif int(d[2]) == 0:
+            print(' _ ', end='')
+        else:
+            print(" . ", end='')
 
     print()
