@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "advent-of-code"
+version = "1.0.0"
+description = ""
+authors = ["Kris Harper <kris.p.harper@gmail.com"]
+
+[tool.poetry.dependencies]
+python = "3.11.*"
+
+[tool.poetry.group.dev.dependencies]
+black = "23.*"
+isort = "5.12.*"
+mypy = "1.*"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
+
+[tool.isort]
+multi_line_output = 3
+profile = "black"
+
+[tool.mypy]
+python_version="3.11"
+ignore_missing_imports = true
+show_error_codes = true
+
+[tool.pytest.ini_options]
+junit_family = "xunit1"
