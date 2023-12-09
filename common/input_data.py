@@ -7,4 +7,4 @@ def parse_input(file: str) -> list[str]:
 
 
 def parse_int_str(int_str: str) -> list[int]:
-    return [int(n) for n in int_str.strip().split(" ")]
+    return [int(n.strip()) for n in int_str.strip().split(" ") if n and not n.isspace()]
