@@ -1,28 +1,10 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from enum import auto, Enum
 
 from more_itertools import flatten
 
+from common.grids import Character, Direction, get_surrounding_characters
 from common.input_data import parse_input
-
-
-class Direction(Enum):
-    NORTHWEST = auto()
-    NORTH = auto()
-    NORTHEAST = auto()
-    EAST = auto()
-    SOUTHEAST = auto()
-    SOUTH = auto()
-    SOUTHWEST = auto()
-    WEST = auto()
-
-
-@dataclass(frozen=True)
-class Character:
-    row_index: int
-    column_index: int
-    value: str
 
 
 @dataclass(frozen=True)
@@ -70,38 +52,4 @@ class Parser(ABC):
         Returns a dictionary of all characters surrounding a given character.
         """
 
-        result = {}
-
-        if row_index > 0 and column_index > 0:
-            result[Direction.NORTHWEST] = Character(
-                row_index - 1, column_index - 1, self.rows[row_index - 1][column_index - 1]
-            )
-
-        if row_index > 0:
-            result[Direction.NORTH] = Character(row_index - 1, column_index, self.rows[row_index - 1][column_index])
-
-        if row_index > 0 and column_index < self.max_column_index:
-            result[Direction.NORTHEAST] = Character(
-                row_index - 1, column_index + 1, self.rows[row_index - 1][column_index + 1]
-            )
-
-        if column_index < self.max_column_index:
-            result[Direction.EAST] = Character(row_index, column_index + 1, self.rows[row_index][column_index + 1])
-
-        if row_index < self.max_row_index and column_index < self.max_column_index:
-            result[Direction.SOUTHEAST] = Character(
-                row_index + 1, column_index + 1, self.rows[row_index + 1][column_index + 1]
-            )
-
-        if row_index < self.max_row_index:
-            result[Direction.SOUTH] = Character(row_index + 1, column_index, self.rows[row_index + 1][column_index])
-
-        if row_index < self.max_row_index and column_index > 0:
-            result[Direction.SOUTHWEST] = Character(
-                row_index + 1, column_index - 1, self.rows[row_index + 1][column_index - 1]
-            )
-
-        if column_index > 0:
-            result[Direction.WEST] = Character(row_index, column_index - 1, self.rows[row_index][column_index - 1])
-
-        return result
+        return get_surrounding_characters(self.rows, row_index, column_index)
