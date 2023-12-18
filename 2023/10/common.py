@@ -95,7 +95,3 @@ def _is_valid_direction(current_character: Character, next_character: Character,
             return False
 
         return True
-
-
-if __name__ == "__main__":
-    Parser().parse()
