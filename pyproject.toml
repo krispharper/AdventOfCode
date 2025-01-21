@@ -9,7 +9,7 @@ python = "3.11.*"
 more-itertools = "10.*"
 
 [tool.poetry.group.dev.dependencies]
-black = "23.*"
+black = "24.*"
 isort = "5.12.*"
 mypy = "1.*"
 
