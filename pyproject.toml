@@ -1,33 +1,50 @@
 [tool.poetry]
 name = "advent-of-code"
-version = "1.0.0"
-description = ""
 authors = ["Kris Harper <kris.p.harper@gmail.com"]
+package-mode = false
 
 [tool.poetry.dependencies]
-python = "3.11.*"
+python = "3.13.*"
 more-itertools = "10.*"
 
 [tool.poetry.group.dev.dependencies]
-black = "24.*"
-isort = "5.12.*"
-mypy = "1.*"
+ruff = "<1.0"
+mypy = "^1.0"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
 
-[tool.black]
+[tool.ruff]
+target-version = "py313"
 line-length = 120
 
-[tool.isort]
-multi_line_output = 3
-profile = "black"
+[tool.ruff.lint]
+select = [
+    "B",   # flake8-bugbear
+    "C90", # mccabe
+    "E",   # pycodestyle
+    "W",   # pycodestyle
+    "F",   # pyflakes
+    "I",   # isort
+    "N",   # pep8-naming
+    "PL",  # pylint
+    "PD",  # pandas-vet
+    "RUF", # ruff
+    "UP",  # pyupgrade
+]
+ignore = [
+    "PLR2004",  # allows comparison to "magic value" instead of constant variable
+    "E731",  # allows assigning lambda to a variable
+]
+
+[tool.ruff.lint.isort]
+known-local-folder = [
+    "20*",
+    "common"
+]
 
 [tool.mypy]
-python_version="3.11"
 ignore_missing_imports = true
 show_error_codes = true
-
-[tool.pytest.ini_options]
-junit_family = "xunit1"
+check_untyped_defs = true
